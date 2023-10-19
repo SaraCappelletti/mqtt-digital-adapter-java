@@ -5,17 +5,11 @@ daProperties:
     topic: "dummy/properties/energy"
     type: "double"
     #field-type: "int"
-    #initialValue:
-    #- 0
-    #- 4
   - propertyKey: "switch"
     topic: "dummy/properties/switch"
     type: "string"
-    #initialValue: "OFF"
 daActions:
   - actionKey: "switch-off"
-    #type: "sensor.actuation"
-    #contentType: "text/plain"
     topic: "app/actions/switch-off"
     actionMessage: "OFF"
 daEvents:

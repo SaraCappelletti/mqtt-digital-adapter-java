@@ -138,28 +138,17 @@ public class MqttDigitalAdapterConfigurationBuilder {
     private void addProperty(JsonNode p) throws MqttDigitalAdapterConfigurationException {
         String propertyKey = p.get("propertyKey").asText();
         String topic = p.get("topic").asText();
-        MqttQosLevel mqttlevel = MqttQosLevel.MQTT_QOS_0;
+        MqttQosLevel mqttLevel = MqttQosLevel.MQTT_QOS_0;
         String type = p.get("type").asText();
-        //String initialValue = p.get("initialValue").toString();
-        addPropertyTopic(propertyKey, topic, mqttlevel, value -> String.valueOf(((Double)value).intValue()));
         if ("int".equals(type)) {
-            addPropertyTopic(propertyKey, topic, mqttlevel, value -> String.valueOf(((Integer)value).intValue()));
+            addPropertyTopic(propertyKey, topic, mqttLevel, value -> String.valueOf(((Integer)value).intValue()));
         }
         else if ("double".equals(type) || "float".equals(type)) {
-            addPropertyTopic(propertyKey, topic, mqttlevel, value -> String.valueOf(((Double)value).intValue()));
+            addPropertyTopic(propertyKey, topic, mqttLevel, value -> String.valueOf(((Double)value).intValue()));
         }
-        else if ("boolean".equals(type)) {
-            addPropertyTopic(propertyKey, topic, mqttlevel, value -> String.valueOf(value));
+        else {// so if type is boolean, string, json-array, json-object or something else
+            addPropertyTopic(propertyKey, topic, mqttLevel, value -> String.valueOf(value));
         }
-        else if ("string".equals(type)) {
-            addPropertyTopic(propertyKey, topic, mqttlevel, value -> String.valueOf(value));
-        }
-        /*else if ("json-array".equals(type)) {
-            addJsonArrayProperty(p.get("field-type").asText(), propertyKey, initialValue, topic);
-        }
-        else if ("json-object".equals(type)) {
-            addJsonObjectProperty(propertyKey, initialValue, topic);
-        }*/
     }
 
     /*private void addJsonArrayProperty(String fieldType, String propertyKey, String initialValue, String topic) throws MqttDigitalAdapterConfigurationException {
@@ -195,36 +184,13 @@ public class MqttDigitalAdapterConfigurationBuilder {
                 return null;
             }
         });
-    }
-
-    private void addJsonObjectProperty(String propertyKey, String initialValue, String topic) throws MqttDigitalAdapterConfigurationException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        ObjectNode initialValuesObject = objectMapper.createObjectNode();
-        try {
-            initialValuesObject = objectMapper.readValue(initialValue, ObjectNode.class);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        addDigitalAssetPropertyAndTopic(propertyKey, initialValuesObject, topic, s -> {
-            ObjectNode parsedValues = objectMapper.createObjectNode();
-            try {
-                parsedValues = objectMapper.readValue(s, ObjectNode.class);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return parsedValues;
-        });
     }*/
 
     private void addAction(JsonNode action) throws MqttDigitalAdapterConfigurationException {
         String actionKey = action.get("actionKey").asText();
-        //String type = action.get("type").asText();
-        //String contentType = action.get("contentType").asText();
         String topic = action.get("topic").asText();
-        String actionMessagge = action.get("actionMessage").asText();
-        addActionTopic(actionKey, topic, msg -> actionMessagge);
-        //addDigitalAssetActionAndTopic(actionKey, type, contentType, topic, actionBody -> actionWord + actionBody);
-
+        String actionMessage = action.get("actionMessage").asText();
+        addActionTopic(actionKey, topic, msg -> actionMessage);
     }
 
     private void addEvent(JsonNode e) throws MqttDigitalAdapterConfigurationException {
