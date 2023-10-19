@@ -138,22 +138,23 @@ public class MqttDigitalAdapterConfigurationBuilder {
     private void addProperty(JsonNode p) throws MqttDigitalAdapterConfigurationException {
         String propertyKey = p.get("propertyKey").asText();
         String topic = p.get("topic").asText();
-        //String type = p.get("type").asText();
+        MqttQosLevel mqttlevel = MqttQosLevel.MQTT_QOS_0;
+        String type = p.get("type").asText();
         //String initialValue = p.get("initialValue").toString();
-        addPropertyTopic(propertyKey, topic, MqttQosLevel.MQTT_QOS_0, value -> String.valueOf(((Double)value).intValue()));
-        /*if ("int".equals(type)) {
-            addPropertyTopic(propertyKey, topic, s -> Integer.valueOf(s));
+        addPropertyTopic(propertyKey, topic, mqttlevel, value -> String.valueOf(((Double)value).intValue()));
+        if ("int".equals(type)) {
+            addPropertyTopic(propertyKey, topic, mqttlevel, value -> String.valueOf(((Integer)value).intValue()));
         }
         else if ("double".equals(type) || "float".equals(type)) {
-            addDigitalAssetPropertyAndTopic(propertyKey, Double.valueOf(initialValue), topic, s -> Double.valueOf(s));
+            addPropertyTopic(propertyKey, topic, mqttlevel, value -> String.valueOf(((Double)value).intValue()));
         }
         else if ("boolean".equals(type)) {
-            addDigitalAssetPropertyAndTopic(propertyKey, Boolean.valueOf(initialValue), topic, s -> Boolean.valueOf(s));
+            addPropertyTopic(propertyKey, topic, mqttlevel, value -> String.valueOf(value));
         }
         else if ("string".equals(type)) {
-            addDigitalAssetPropertyAndTopic(propertyKey, String.valueOf(initialValue), topic, s -> String.valueOf(s));
+            addPropertyTopic(propertyKey, topic, mqttlevel, value -> String.valueOf(value));
         }
-        else if ("json-array".equals(type)) {
+        /*else if ("json-array".equals(type)) {
             addJsonArrayProperty(p.get("field-type").asText(), propertyKey, initialValue, topic);
         }
         else if ("json-object".equals(type)) {

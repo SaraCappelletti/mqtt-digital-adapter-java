@@ -3,14 +3,14 @@ brokerPort: 1883
 daProperties:
   - propertyKey: "energy"
     topic: "dummy/properties/energy"
-    #type: "json-array"
+    type: "double"
     #field-type: "int"
     #initialValue:
     #- 0
     #- 4
   - propertyKey: "switch"
     topic: "dummy/properties/switch"
-    #type: "string"
+    type: "string"
     #initialValue: "OFF"
 daActions:
   - actionKey: "switch-off"
