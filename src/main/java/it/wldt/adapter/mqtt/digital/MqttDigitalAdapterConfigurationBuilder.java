@@ -221,17 +221,15 @@ public class MqttDigitalAdapterConfigurationBuilder {
         //String type = action.get("type").asText();
         //String contentType = action.get("contentType").asText();
         String topic = action.get("topic").asText();
-        //String actionWord = action.get("action").asText();
-        addActionTopic(actionKey, topic, msg -> "OFF");
+        String actionMessagge = action.get("actionMessage").asText();
+        addActionTopic(actionKey, topic, msg -> actionMessagge);
         //addDigitalAssetActionAndTopic(actionKey, type, contentType, topic, actionBody -> actionWord + actionBody);
 
     }
 
     private void addEvent(JsonNode e) throws MqttDigitalAdapterConfigurationException {
         String eventKey = e.get("eventKey").asText();
-        //String type = e.get("type").asText();
         String topic = e.get("topic").asText();
         addEventNotificationTopic(eventKey, topic, MqttQosLevel.MQTT_QOS_0, Object::toString);
-        //addDigitalAssetEventAndTopic(eventKey, type, topic, Function.identity());
     }
 }

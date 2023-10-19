@@ -17,8 +17,7 @@ daActions:
     #type: "sensor.actuation"
     #contentType: "text/plain"
     topic: "app/actions/switch-off"
-    #action: "switch"
+    actionMessage: "OFF"
 daEvents:
   - eventKey: "overheating"
-    #type: "text/plain"
     topic: "dummy/events/overheating/notifications"
