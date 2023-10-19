@@ -1,5 +1,8 @@
 package it.wldt.adapter.mqtt.digital;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import it.wldt.adapter.mqtt.digital.exception.MqttDigitalAdapterConfigurationException;
 import it.wldt.adapter.mqtt.digital.topic.incoming.ActionIncomingTopic;
 import it.wldt.adapter.mqtt.digital.topic.outgoing.EventNotificationOutgoingTopic;
@@ -8,6 +11,8 @@ import org.eclipse.paho.client.mqttv3.MqttClientPersistence;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 public class MqttDigitalAdapterConfiguration {
@@ -42,6 +47,12 @@ public class MqttDigitalAdapterConfiguration {
 
     public static MqttDigitalAdapterConfigurationBuilder builder(String brokerAddress, Integer brokerPort) throws MqttDigitalAdapterConfigurationException {
         return new MqttDigitalAdapterConfigurationBuilder(brokerAddress, brokerPort);
+    }
+
+    public static MqttDigitalAdapterConfigurationBuilder builder(String filepath) throws IOException {
+        ObjectMapper yamlMapper = new ObjectMapper(new YAMLFactory());
+        JsonNode jsonNode = yamlMapper.readTree(new File(filepath));
+        return new  MqttDigitalAdapterConfigurationBuilder(jsonNode);
     }
 
     public String getBrokerAddress() {

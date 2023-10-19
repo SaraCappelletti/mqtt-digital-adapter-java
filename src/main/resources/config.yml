@@ -1,24 +1,24 @@
 brokerAddress: "127.0.0.1"
 brokerPort: 1883
 daProperties:
-  - propertyKey: "intensity"
-    topic: "sensor/intensity"
-    type: "json-array"
-    field-type: "int"
-    initialValue:
-    - 0
-    - 4
+  - propertyKey: "energy"
+    topic: "dummy/properties/energy"
+    #type: "json-array"
+    #field-type: "int"
+    #initialValue:
+    #- 0
+    #- 4
   - propertyKey: "switch"
-    topic: "device/switch"
-    type: "string"
-    initialValue: "OFF"
+    topic: "dummy/properties/switch"
+    #type: "string"
+    #initialValue: "OFF"
 daActions:
   - actionKey: "switch-off"
-    type: "sensor.actuation"
-    contentType: "text/plain"
-    topic: "sensor/actions/switch"
-    action: "switch"
+    #type: "sensor.actuation"
+    #contentType: "text/plain"
+    topic: "app/actions/switch-off"
+    #action: "switch"
 daEvents:
   - eventKey: "overheating"
-    type: "text/plain"
-    topic: "sensor/overheating"
+    #type: "text/plain"
+    topic: "dummy/events/overheating/notifications"

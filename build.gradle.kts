@@ -20,6 +20,8 @@ dependencies {
     api("com.google.code.gson:gson:2.10")
     api("io.github.wldt:wldt-core:0.2.1")
     testImplementation("junit:junit:4.13.2")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.15.2")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.2")
 }
 
 java {
